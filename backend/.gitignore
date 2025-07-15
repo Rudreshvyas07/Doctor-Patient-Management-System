@@ -1,3 +1,6 @@
+# Node modules
+node_modules/
+
 # Logs
 logs
 *.log
@@ -7,22 +10,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Downloaded files
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.exe
+*.msi
+*.dmg
+*.iso
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+.vscode/
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
-
-# Ignore images and public folders
-images/
-public/
+*.sw? 
