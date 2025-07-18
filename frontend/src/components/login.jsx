@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ThemeSwitcher from './ThemeSwitcher';
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -39,36 +40,37 @@ function Login() {
   
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200">
-      <div className="bg-white shadow-2xl rounded-2xl p-12 max-w-2xl w-full min-h-[600px] flex flex-col justify-center border border-blue-100">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="w-full flex justify-end px-8 pt-6"><ThemeSwitcher /></div>
+      <div className="bg-white dark:bg-gray-900 shadow-2xl rounded-2xl p-12 max-w-2xl w-full min-h-[600px] flex flex-col justify-center border border-blue-100 dark:border-gray-800">
         <div className="flex flex-col items-center mb-6">
-          <div className="bg-blue-100 p-4 rounded-full mb-2">
+          <div className="bg-blue-100 dark:bg-gray-800 p-4 rounded-full mb-2">
             <img src="/images/log.png" alt="User Icon" className="w-12 h-12 object-contain" />
           </div>
-          <h2 className="text-3xl font-extrabold text-gray-800">Login</h2>
-          <p className="text-gray-500 mt-1">Welcome back! Please login to your account.</p>
+          <h2 className="text-3xl font-extrabold text-gray-800 dark:text-white">Login</h2>
+          <p className="text-gray-500 dark:text-gray-300 mt-1">Welcome back! Please login to your account.</p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-gray-700 text-sm mb-1 font-medium">Email</label>
+            <label className="block text-gray-700 dark:text-gray-200 text-sm mb-1 font-medium">Email</label>
             <input
               type="email"
               name="email"
               placeholder="you@example.com"
               value={form.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white transition"
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm mb-1 font-medium">Password</label>
+            <label className="block text-gray-700 dark:text-gray-200 text-sm mb-1 font-medium">Password</label>
             <input
               type="password"
               name="password"
               placeholder="********"
               value={form.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white transition"
             />
             <div className="text-right mt-1">
               <Link to="/forgot-password" className="text-xs text-blue-500 hover:underline">Forgot password?</Link>
@@ -76,20 +78,20 @@ function Login() {
           </div>
           <div className="flex items-center">
             <input type="checkbox" className="mr-2 accent-blue-600" id="remember" />
-            <label htmlFor="remember" className="text-sm text-gray-600 select-none">Remember me</label>
+            <label htmlFor="remember" className="text-sm text-gray-600 dark:text-gray-300 select-none">Remember me</label>
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition text-lg tracking-wide"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-gray-700 dark:to-gray-800 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 dark:hover:from-gray-800 dark:hover:to-gray-900 transition text-lg tracking-wide"
           >
             Login
           </button>
-          {message && <div className="text-center text-sm mt-2 text-blue-600">{message}</div>}
+          {message && <div className="text-center text-sm mt-2 text-blue-600 dark:text-blue-400">{message}</div>}
         </form>
         <div className="text-center mt-6">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-blue-600 hover:underline font-medium">
+            <Link to="/signup" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
               Sign up
             </Link>
           </p>

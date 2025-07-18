@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
+import ThemeSwitcher from './ThemeSwitcher';
 
 function Home() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
+      {/* Theme Switcher Top Right */}
+      <div className="absolute top-0 right-0 p-6 z-20">
+        <ThemeSwitcher />
+      </div>
       {/* Background Image */}
       <img
         src="/images/doctor.jpg"
         alt="Doctor"
-        className="absolute inset-0 w-full h-full object-cover brightness-50"
+        className="absolute inset-0 w-full h-full object-cover brightness-50 dark:brightness-30"
       />
 
       {/* Optional dark overlay */}
@@ -26,12 +31,12 @@ function Home() {
 
         <div className="space-x-4">
           <Link to="/login">
-            <button className="bg-blue-600 text-black px-6 py-2 rounded shadow hover:bg-blue-700 transition">
+            <button className="bg-blue-600 text-black dark:bg-blue-800 dark:text-white px-6 py-2 rounded shadow hover:bg-blue-700 dark:hover:bg-blue-900 transition">
               Login
             </button>
           </Link>
           <Link to="/signup">
-            <button className="bg-green-600 text-black px-6 py-2 rounded shadow hover:bg-green-700 transition">
+            <button className="bg-green-600 text-black dark:bg-green-800 dark:text-white px-6 py-2 rounded shadow hover:bg-green-700 dark:hover:bg-green-900 transition">
               Sign Up
             </button>
           </Link>

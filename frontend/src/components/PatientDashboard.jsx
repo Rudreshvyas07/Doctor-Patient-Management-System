@@ -4,6 +4,7 @@ import AddPatient from "./addpatient";
 import jsPDF from 'jspdf';
 import { useNavigate } from "react-router-dom";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import ThemeSwitcher from './ThemeSwitcher';
 
 // No dummy data; start with empty patient list
 
@@ -58,6 +59,10 @@ export default function PatientDashboard() {
     'Biochemic tablet charges',
   ];
   const [billFields, setBillFields] = useState(['', '', '', '']);
+  // Remove global includeTreatment state
+  // Add per-patient treatment state
+  const [treatmentChecked, setTreatmentChecked] = useState({});
+  const [includeTreatment, setIncludeTreatment] = useState(false); // Only for modal
 
   // Handle profile edit
   const handleProfileChange = (e) => {
@@ -195,8 +200,21 @@ export default function PatientDashboard() {
     doc.text('Ashish Homeo Clinic', 105, 20, { align: 'center' });
     doc.setFontSize(14);
     doc.text(`Patient: ${billPatient.Name || ''}`, 20, 35);
+    
     let startY = 50;
     const rowHeight = 12;
+    
+    // Add treatment information if checkbox is checked
+    if (includeTreatment && billPatient.remedy) {
+      doc.setFontSize(12);
+      doc.text('Treatment Details:', 20, startY);
+      doc.setFontSize(10);
+      doc.text(`Remedy: ${billPatient.remedy || 'N/A'}`, 20, startY + 8);
+      doc.text(`Potency: ${billPatient.potency || 'N/A'}`, 20, startY + 16);
+      doc.text(`Duration: ${billPatient.duration || 'N/A'}`, 20, startY + 24);
+      startY += 40; // Move down to accommodate treatment info
+    }
+    
     doc.setLineWidth(0.5);
     doc.rect(20, startY, 170, rowHeight * 5 + 10);
     doc.line(20, startY + rowHeight, 190, startY + rowHeight);
@@ -220,6 +238,7 @@ export default function PatientDashboard() {
     doc.line(190, startY, 190, startY + rowHeight * 5 + 10);
     doc.save(`Bill_${billPatient.Name || 'patient'}.pdf`);
     setBillPatient(null);
+    setIncludeTreatment(false);
   };
 
   // --- Analytics calculations (reuse patient data) ---
@@ -287,6 +306,10 @@ export default function PatientDashboard() {
       </aside>
       {/* Main Content */}
       <main className="flex-1 flex flex-col p-8 min-w-0">
+        {/* Top bar with theme switcher */}
+        <div className="flex justify-end items-center mb-4">
+          <ThemeSwitcher />
+        </div>
         {/* Tabs at the top */}
         <div className="flex gap-4 mb-6">
           <button onClick={() => setTab('patients')} className={`px-6 py-2 rounded-t-lg font-semibold border-b-2 ${tab === 'patients' ? 'border-blue-600 text-blue-600 bg-white' : 'border-transparent text-gray-500 bg-gray-200'}`}>Patients</button>
@@ -361,7 +384,7 @@ export default function PatientDashboard() {
                                 : patient[field.key]}
                           </td>
                         ))}
-                        <td className="px-4 py-2 flex gap-2">
+                        <td className="px-4 py-2 flex gap-2 items-center">
                           <button className="bg-blue-500 text-black px-3 py-1 rounded hover:bg-blue-600" onClick={() => openEditModal(patient)}>Edit</button>
                           <button className="bg-red-500 text-black px-3 py-1 rounded hover:bg-red-600" onClick={() => handleDelete(patient._id)}>Delete</button>
                           <button
@@ -369,10 +392,20 @@ export default function PatientDashboard() {
                             onClick={() => {
                               setBillPatient(patient);
                               setBillFields(['', '', '', '']);
+                              setIncludeTreatment(!!treatmentChecked[patient._id]);
                             }}
                           >
                             Download Bill
                           </button>
+                          <label className="flex items-center text-gray-200 text-base ml-2 select-none">
+                            <input
+                              type="checkbox"
+                              checked={!!treatmentChecked[patient._id]}
+                              onChange={e => setTreatmentChecked(tc => ({ ...tc, [patient._id]: e.target.checked }))}
+                              className="mr-2 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-all duration-150"
+                            />
+                            {treatmentChecked[patient._id] ? 'Treated' : 'Treatment'}
+                          </label>
                         </td>
                       </tr>
                     ))}
@@ -490,6 +523,7 @@ export default function PatientDashboard() {
                         />
                       </div>
                     ))}
+                    {/* In the bill modal, remove the treatment checkbox (it is now only in the table) */}
                     <div className="mb-2 font-bold text-right text-lg">
                       Total: ₹{billFields.reduce((sum, val) => sum + (parseFloat(val) || 0), 0).toFixed(2)}
                     </div>
