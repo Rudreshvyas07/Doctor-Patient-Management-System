@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeSwitcher from './ThemeSwitcher';
+import API_BASE_URL from '../config/api';
 
 function Signup() {
   const [form, setForm] = useState({
@@ -20,7 +21,7 @@ function Signup() {
     e.preventDefault();
     setMessage("");
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

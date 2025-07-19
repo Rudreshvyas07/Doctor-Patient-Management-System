@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
+import API_BASE_URL from '../config/api';
 
 const AddPatient = ({ onClose, onAddPatient }) => {
   const [form, setForm] = useState({
@@ -34,7 +35,7 @@ const AddPatient = ({ onClose, onAddPatient }) => {
     setMessage('');
     try {
       const doctorId = localStorage.getItem('doctorId');
-      const res = await fetch('http://localhost:5000/api/patient/add', {
+      const res = await fetch(`${API_BASE_URL}/api/patient/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, doctor: doctorId }),

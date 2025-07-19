@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PatientDetails from './PatientDetails';
 import AddPatient from './addpatient';
+import API_BASE_URL from '../config/api';
 
 const visibleFields = [
   { key: 'number', label: 'No.' },
@@ -45,7 +46,7 @@ const PatientDashboardSection = () => {
       setLoading(true);
       try {
         const doctorId = localStorage.getItem('doctorId');
-        let url = `http://localhost:5000/api/patient/all?doctor=${doctorId}`;
+        let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorId}`;
         if (searchTerm) {
           url += `&name=${encodeURIComponent(searchTerm)}`;
         }
@@ -112,7 +113,7 @@ const PatientDashboardSection = () => {
   };
   const handleEditSave = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/patient/${editPatient._id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/patient/${editPatient._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm),
@@ -131,7 +132,7 @@ const PatientDashboardSection = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/patient/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_BASE_URL}/api/patient/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setPatients(patients.filter((p) => p._id !== id));
       } else {
