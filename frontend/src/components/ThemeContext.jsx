@@ -14,7 +14,11 @@ export const ThemeProvider = ({ children }) => {
         ? window.matchMedia("(prefers-color-scheme: dark)").matches
         : theme === "dark";
 
-    root.classList.toggle("dark", isDark);
+    if (isDark) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -26,3 +30,4 @@ export const ThemeProvider = ({ children }) => {
 };
 
 export const useTheme = () => useContext(ThemeContext);
+ 
