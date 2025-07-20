@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ThemeSwitcher from './ThemeSwitcher';
 import API_BASE_URL from '../config/api';
 
 function Login() {
@@ -37,18 +36,17 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-sans">
-      <div className="w-full flex justify-end px-8 pt-6"><ThemeSwitcher /></div>
-      <div className="bg-white/30 dark:bg-gray-900/70 shadow-2xl rounded-3xl p-12 max-w-xl w-full min-h-[600px] flex flex-col justify-center border border-white/30 dark:border-gray-700/60 backdrop-blur-[6px]">
-        <div className="flex flex-col items-center mb-6">
-          <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-500 drop-shadow animate-fade-in">Login</h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-1 animate-fade-in delay-100">Welcome back! Please login to your account.</p>
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#f4f8fb] font-sans transition-colors duration-500">
+      <div className="bg-white dark:bg-[#18223a] shadow-2xl rounded-3xl p-24 max-w-4xl w-full flex flex-col justify-center border border-[#e0e7ef] dark:border-[#232e4a]">
+        <div className="flex flex-col items-center mb-8">
+          <h2 className="text-5xl font-extrabold mb-2 text-[#2563eb] dark:text-[#38bdf8] drop-shadow animate-fade-in">Login</h2>
+          <p className="text-lg text-[#64748b] dark:text-[#cbd5e1] animate-fade-in delay-100">Welcome back! Please login to your account.</p>
         </div>
-        <form className="space-y-6 animate-fade-in delay-200" onSubmit={handleSubmit}>
+        <form className="space-y-8 animate-fade-in delay-200" onSubmit={handleSubmit}>
             <div className="relative">
-              <label className="block text-gray-700 dark:text-gray-200 text-sm mb-1 font-medium">Email</label>
-              <span className="absolute left-3 top-9 text-blue-400 dark:text-blue-300">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M2.94 5.12A2 2 0 014.88 4h10.24a2 2 0 011.94 1.12l-7.06 4.42-7.06-4.42zM18 6.08v8.16A2 2 0 0116 16.24H4a2 2 0 01-2-2V6.08l7.47 4.68a1 1 0 001.06 0L18 6.08z"/></svg>
+              <label className="block text-[#334155] dark:text-[#cbd5e1] text-base mb-1 font-medium">Email</label>
+              <span className="absolute left-3 top-10 text-[#2563eb] dark:text-[#38bdf8]">
+                <svg width="22" height="22" fill="currentColor" viewBox="0 0 20 20"><path d="M2.94 5.12A2 2 0 014.88 4h10.24a2 2 0 011.94 1.12l-7.06 4.42-7.06-4.42zM18 6.08v8.16A2 2 0 0116 16.24H4a2 2 0 01-2-2V6.08l7.47 4.68a1 1 0 001.06 0L18 6.08z"/></svg>
               </span>
               <input
                 type="email"
@@ -56,13 +54,13 @@ function Login() {
                 placeholder="you@example.com"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white transition"
+                className="w-full pl-12 pr-4 py-3 border border-[#cbd5e1] dark:border-[#334155] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8] dark:bg-[#101624] dark:text-white text-lg transition"
               />
             </div>
             <div className="relative">
-              <label className="block text-gray-700 dark:text-gray-200 text-sm mb-1 font-medium">Password</label>
-              <span className="absolute left-3 top-9 text-blue-400 dark:text-blue-300">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 6V6a2 2 0 114 0v2H8zm-3 2h10v6H5v-6z"/></svg>
+              <label className="block text-[#334155] dark:text-[#cbd5e1] text-base mb-1 font-medium">Password</label>
+              <span className="absolute left-3 top-10 text-[#2563eb] dark:text-[#38bdf8]">
+                <svg width="22" height="22" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 6V6a2 2 0 114 0v2H8zm-3 2h10v6H5v-6z"/></svg>
               </span>
               <input
                 type="password"
@@ -70,35 +68,34 @@ function Login() {
                 placeholder="********"
                 value={form.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white transition"
+                className="w-full pl-12 pr-4 py-3 border border-[#cbd5e1] dark:border-[#334155] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8] dark:bg-[#101624] dark:text-white text-lg transition"
               />
               <div className="text-right mt-1">
-                <Link to="/forgot-password" className="text-xs text-blue-500 hover:underline">Forgot password?</Link>
+                <Link to="/forgot-password" className="text-sm text-[#2563eb] dark:text-[#38bdf8] hover:underline">Forgot password?</Link>
               </div>
             </div>
             <div className="flex items-center">
-              <input type="checkbox" className="mr-2 accent-blue-600" id="remember" />
-              <label htmlFor="remember" className="text-sm text-gray-600 dark:text-gray-300 select-none">Remember me</label>
+              <input type="checkbox" className="mr-2 accent-[#2563eb]" id="remember" />
+              <label htmlFor="remember" className="text-base text-[#64748b] dark:text-[#cbd5e1] select-none">Remember me</label>
             </div>
             <button
               type="submit"
-              className="w-full px-8 py-3 rounded-xl font-bold text-lg shadow-lg bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 text-white hover:scale-105 hover:shadow-2xl hover:from-blue-600 hover:to-emerald-600 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-emerald-700 animate-fade-in delay-300"
+              className="w-full px-8 py-3 rounded-xl font-bold text-xl shadow-md bg-[#2563eb] hover:bg-[#174ea6] text-black hover:scale-105 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#93c5fd] dark:focus:ring-[#38bdf8] animate-fade-in delay-300"
               aria-label="Login"
             >
               Login
             </button>
-            {message && <div className="text-center text-sm mt-2 text-blue-600 dark:text-blue-400">{message}</div>}
+            {message && <div className="text-center text-base mt-2 text-[#2563eb] dark:text-[#38bdf8]">{message}</div>}
           </form>
-        <div className="text-center mt-6 animate-fade-in delay-400">
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+        <div className="text-center mt-8 animate-fade-in delay-400">
+          <p className="text-base text-[#64748b] dark:text-[#cbd5e1]">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+            <Link to="/signup" className="text-[#2563eb] dark:text-[#38bdf8] hover:underline font-medium">
               Sign up
             </Link>
           </p>
         </div>
       </div>
-      {/* Animations */}
       <style>{`
         .animate-fade-in {
           opacity: 0;

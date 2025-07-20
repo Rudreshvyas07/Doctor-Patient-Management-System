@@ -283,10 +283,10 @@ export default function PatientDashboard() {
     .slice(0, 5);
 
   return (
-    <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#e0f2fe] via-[#f8fafc] to-[#e0e7ef] dark:from-[#101624] dark:via-[#18223a] dark:to-[#1e293b] font-sans transition-colors duration-500">
       {/* Sidebar */}
-      <aside className="w-64 bg-white/30 dark:bg-gray-900/70 backdrop-blur-[8px] border-r border-white/30 dark:border-gray-700/60 shadow-2xl flex flex-col py-8 px-4 min-h-screen rounded-tr-3xl rounded-br-3xl animate-fade-in">
-        <h2 className="text-3xl font-extrabold mb-10 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-500 drop-shadow-lg tracking-wide">Dashboard</h2>
+      <aside className="w-64 bg-white dark:bg-[#18223a] border-r border-[#e0e7ef] dark:border-[#232e4a] shadow-2xl flex flex-col py-12 px-7 min-h-screen rounded-tr-3xl rounded-br-3xl animate-fade-in">
+        <h2 className="text-4xl font-extrabold mb-14 text-center text-[#1e40af] dark:text-[#38bdf8] drop-shadow-xl tracking-wide font-sans animate-fade-in">Dashboard</h2>
         <nav className="flex-1">
           <ul className="space-y-4">
             <li>
@@ -307,12 +307,12 @@ export default function PatientDashboard() {
         <div className="mt-auto text-xs text-gray-400 text-center pt-10">&copy; 2024 DRM</div>
       </aside>
       {/* Main Content */}
-      <main className="flex-1 flex flex-col p-8 min-w-0">
+      <main className="flex-1 flex flex-col p-16 min-w-0">
         {/* Top bar with theme switcher and welcome */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="text-xl font-bold text-gray-700 dark:text-gray-200">Welcome, <span className="text-blue-600 dark:text-blue-400">{profile.fullName || 'Doctor'}</span></div>
+        <div className="flex justify-between items-center mb-10">
+          <div className="text-3xl font-extrabold text-[#1e293b] dark:text-[#e0e7b7] font-sans animate-fade-in">Welcome, <span className="text-[#2563eb] dark:text-[#38bdf8] font-extrabold">{profile.fullName || 'Doctor'}</span></div>
           <ThemeSwitcher />
-          </div>
+        </div>
         {/* Tabs at the top */}
         <div className="flex gap-4 mb-8">
           <button onClick={() => setTab('patients')} className={`px-8 py-3 rounded-t-2xl font-semibold border-b-4 transition-all duration-200 shadow ${tab === 'patients' ? 'border-blue-600 text-blue-600 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 bg-gray-200 dark:bg-gray-800 hover:bg-white/80 dark:hover:bg-gray-700'}`}>Patients</button>
@@ -342,7 +342,7 @@ export default function PatientDashboard() {
                 <button className="bg-gradient-to-r from-gray-700 to-gray-900 text-white font-semibold px-6 py-2 rounded-xl shadow-lg hover:from-gray-800 hover:to-gray-900 transition-all" onClick={() => setShowAllFields(true)}>Show All Fields</button>
               )}
             </div>
-            <div className="bg-white/40 dark:bg-gray-900/60 rounded-3xl shadow-2xl p-4 w-full border border-white/30 dark:border-gray-700/60 backdrop-blur-[4px]">
+            <div className="bg-white dark:bg-[#18223a] rounded-3xl shadow-2xl p-12 w-full border-2 border-[#bae6fd] dark:border-[#334155] hover:shadow-3xl transition-all duration-300 animate-fade-in">
               <div className="overflow-x-auto w-full" style={{ minHeight: '400px', maxHeight: '600px', overflowY: 'auto' }}>
                 {loading ? (
                   <div className="text-center text-blue-600 dark:text-blue-300 py-8 text-lg font-semibold animate-pulse">Loading patients...</div>
@@ -387,7 +387,7 @@ export default function PatientDashboard() {
         {/* Add Patient Modal */}
         {showModal && (
               <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 animate-fade-in">
-                <div className="bg-white/90 dark:bg-gray-900/90 rounded-3xl shadow-2xl p-0 w-full max-w-xl relative max-h-[95vh] overflow-auto border border-white/30 dark:border-gray-700/60 backdrop-blur-[8px]">
+                <div className="bg-white dark:bg-[#18223a] rounded-3xl shadow-2xl p-0 w-full max-w-xl relative max-h-[95vh] overflow-auto border-2 border-[#bae6fd] dark:border-[#334155] animate-fade-in">
                   <button className="absolute top-4 right-6 text-gray-500 hover:text-gray-700 text-3xl font-bold z-10" onClick={() => setShowModal(false)}>&times;</button>
                   <AddPatient onClose={() => setShowModal(false)} onAddPatient={handleAddPatient} />
                 </div>
@@ -396,7 +396,7 @@ export default function PatientDashboard() {
             {/* Settings Modal */}
             {showSettings && (
               <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 animate-fade-in">
-                <div className="bg-white/90 dark:bg-gray-900/90 rounded-3xl shadow-2xl p-8 w-full max-w-lg relative border border-white/30 dark:border-gray-700/60 backdrop-blur-[8px]">
+                <div className="bg-white dark:bg-[#18223a] rounded-3xl shadow-2xl p-12 w-full max-w-lg relative border-2 border-[#bae6fd] dark:border-[#334155] animate-fade-in">
                   <button className="absolute top-4 right-6 text-gray-500 hover:text-gray-700 text-3xl font-bold z-10" onClick={() => setShowSettings(false)}>&times;</button>
                   <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Edit Profile</h2>
                   <form className="space-y-5" onSubmit={e => { e.preventDefault(); handleProfileSave(); }}>
@@ -423,7 +423,7 @@ export default function PatientDashboard() {
             {/* Edit Patient Modal */}
             {editPatient && (
               <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 animate-fade-in">
-                <div className="bg-white/90 dark:bg-gray-900/90 p-8 rounded-3xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto border border-white/30 dark:border-gray-700/60 backdrop-blur-[8px]">
+                <div className="bg-white dark:bg-[#18223a] p-12 rounded-3xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto border-2 border-[#bae6fd] dark:border-[#334155] animate-fade-in">
                   <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Edit Patient</h2>
                   <form onSubmit={e => { e.preventDefault(); handleEditSave(); }} className="space-y-4">
                     {Object.keys(editForm).map((key) => (
@@ -445,7 +445,7 @@ export default function PatientDashboard() {
             {/* Bill Modal */}
             {billPatient && (
               <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 animate-fade-in">
-                <div className="bg-white/80 dark:bg-gray-900/95 p-8 rounded-3xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto border border-white/30 dark:border-gray-700/60 backdrop-blur-[10px] relative">
+                <div className="bg-white dark:bg-[#18223a] p-12 rounded-3xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto border-2 border-[#bae6fd] dark:border-[#334155] relative animate-fade-in">
                   <button className="absolute top-4 right-6 text-gray-500 hover:text-gray-700 text-3xl font-bold z-10" onClick={() => setBillPatient(null)}>&times;</button>
                   <div className="flex flex-col items-center mb-4">
                     <div className="bg-blue-100 dark:bg-gray-800 p-4 rounded-full mb-2 shadow">
@@ -498,22 +498,22 @@ export default function PatientDashboard() {
             <p className="text-gray-500 dark:text-gray-300 mb-8">Visualize your patient data and trends.</p>
             {/* Stat cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-              <div className="bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-xl p-8 flex flex-col items-center border border-white/30 dark:border-gray-700/60">
+              <div className="bg-white dark:bg-[#18223a] rounded-2xl shadow-xl p-12 flex flex-col items-center border-2 border-[#bae6fd] dark:border-[#334155] hover:shadow-2xl transition-all duration-300 animate-fade-in">
                 <div className="text-5xl font-extrabold text-blue-600 dark:text-blue-400 mb-2 animate-fade-in">{totalPatients}</div>
                 <div className="text-gray-700 dark:text-gray-200 font-semibold text-lg">Total Patients</div>
               </div>
-              <div className="bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-xl p-8 flex flex-col items-center border border-white/30 dark:border-gray-700/60">
+              <div className="bg-white dark:bg-[#18223a] rounded-2xl shadow-xl p-12 flex flex-col items-center border-2 border-[#bae6fd] dark:border-[#334155] hover:shadow-2xl transition-all duration-300 animate-fade-in">
                 <div className="text-5xl font-extrabold text-green-600 dark:text-green-400 mb-2 animate-fade-in delay-100">{newPatientsThisMonth}</div>
                 <div className="text-gray-700 dark:text-gray-200 font-semibold text-lg">New This Month</div>
               </div>
-              <div className="bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-xl p-8 flex flex-col items-center border border-white/30 dark:border-gray-700/60">
+              <div className="bg-white dark:bg-[#18223a] rounded-2xl shadow-xl p-12 flex flex-col items-center border-2 border-[#bae6fd] dark:border-[#334155] hover:shadow-2xl transition-all duration-300 animate-fade-in">
                 <div className="text-5xl font-extrabold text-purple-600 dark:text-purple-400 mb-2 animate-fade-in delay-200">{Object.keys(diagCounts).length}</div>
                 <div className="text-gray-700 dark:text-gray-200 font-semibold text-lg">Unique Diagnoses</div>
               </div>
             </div>
             {/* Charts */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-xl p-8 border border-white/30 dark:border-gray-700/60">
+              <div className="bg-white dark:bg-[#18223a] rounded-2xl shadow-xl p-12 border-2 border-[#bae6fd] dark:border-[#334155]">
                 <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">Gender Distribution</h2>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
@@ -527,7 +527,7 @@ export default function PatientDashboard() {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-xl p-8 border border-white/30 dark:border-gray-700/60">
+              <div className="bg-white dark:bg-[#18223a] rounded-2xl shadow-xl p-12 border-2 border-[#bae6fd] dark:border-[#334155]">
                 <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">Age Distribution</h2>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={ageData}>
@@ -539,7 +539,7 @@ export default function PatientDashboard() {
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-xl p-8 mt-10 border border-white/30 dark:border-gray-700/60">
+            <div className="bg-white dark:bg-[#18223a] rounded-2xl shadow-xl p-12 mt-14 border-2 border-[#bae6fd] dark:border-[#334155] hover:shadow-2xl transition-all duration-300 animate-fade-in">
               <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">Top Diagnoses</h2>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={diagData} layout="vertical">
