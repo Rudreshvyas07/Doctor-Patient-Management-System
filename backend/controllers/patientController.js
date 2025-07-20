@@ -5,6 +5,14 @@ exports.addPatient = async (req, res) => {
     if (!req.body.doctor || req.body.doctor === "null") {
       return res.status(400).json({ message: "Valid doctorId required" });
     }
+    if (!req.body.PatientID) {
+      return res.status(400).json({ message: "PatientID is required" });
+    }
+    // Check uniqueness
+    const existing = await Patient.findOne({ PatientID: req.body.PatientID });
+    if (existing) {
+      return res.status(400).json({ message: "PatientID already exists" });
+    }
     console.log(req.body);
 
     const patient = new Patient(req.body);

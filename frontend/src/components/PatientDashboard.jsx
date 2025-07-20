@@ -307,7 +307,7 @@ export default function PatientDashboard() {
         <div className="mt-auto text-xs text-gray-400 text-center pt-10">&copy; 2024 DRM</div>
       </aside>
       {/* Main Content */}
-      <main className="flex-1 flex flex-col p-16 min-w-0">
+      <main className="flex-1 flex flex-col p-16 min-w-0 max-w-7xl mx-auto w-full">
         {/* Top bar with theme switcher and welcome */}
         <div className="flex justify-between items-center mb-10">
           <div className="text-3xl font-extrabold text-[#1e293b] dark:text-[#e0e7b7] font-sans animate-fade-in">Welcome, <span className="text-[#2563eb] dark:text-[#38bdf8] font-extrabold">{profile.fullName || 'Doctor'}</span></div>

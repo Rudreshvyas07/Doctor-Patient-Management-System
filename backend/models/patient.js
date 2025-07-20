@@ -64,6 +64,11 @@ const patientSchema = new mongoose.Schema({
     nextVisitDate: {
         type: Date,
     },
+    PatientID: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     doctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
