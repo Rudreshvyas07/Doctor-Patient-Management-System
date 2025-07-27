@@ -98,9 +98,8 @@ export default function PatientDashboard() {
         if (res.ok && Array.isArray(data.patients)) {
           setPatients(data.patients.map((p, idx) => ({ number: idx + 1, ...p })));
         }
-      } catch (err) {
-        // Optionally handle error
-      } finally {
+      }
+      finally {
         setLoading(false);
       }
     };
@@ -115,9 +114,10 @@ export default function PatientDashboard() {
       } else {
         // Optionally show error
       }
-    } catch (err) {
-      // Optionally show error
-    }
+    }catch (err) {
+  console.error('Error:', err);
+  // Optionally, set an error message state to show in the UI
+}
   };
 
   // Edit patient modal state
@@ -150,8 +150,9 @@ export default function PatientDashboard() {
         // Optionally show error
       }
     } catch (err) {
-      // Optionally show error
-    }
+  console.error('Error:', err);
+  // Optionally, set an error message state to show in the UI
+}
   };
 
   const handleAddPatient = (newPatient) => {

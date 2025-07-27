@@ -1,5 +1,4 @@
 import { FaTachometerAlt, FaUserPlus } from 'react-icons/fa';
-import ThemeSwitcher from './ThemeSwitcher';
 import AddPatient from './addpatient';
 import React, { useState } from 'react';
 
