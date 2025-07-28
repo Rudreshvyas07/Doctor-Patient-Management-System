@@ -7,10 +7,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://doctor-patient-management-system-wje7.onrender.com',
+        target: 'http://localhost:5000', // <-- your backend URL
         changeOrigin: true,
-        secure: true,
-      }
-    }
-  }
-})
+        secure: false,
+      },
+    },
+  },
+});

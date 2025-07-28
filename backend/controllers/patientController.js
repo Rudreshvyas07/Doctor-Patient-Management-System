@@ -5,19 +5,12 @@ exports.addPatient = async (req, res) => {
     if (!req.body.doctor || req.body.doctor === "null") {
       return res.status(400).json({ message: "Valid doctorId required" });
     }
+    // Auto-generate PatientID if not provided
     if (!req.body.PatientID) {
-      return res.status(400).json({ message: "PatientID is required" });
+      req.body.PatientID = 'PID-' + Date.now() + '-' + Math.floor(Math.random()*1000);
     }
-    // Check uniqueness
-    const existing = await Patient.findOne({ PatientID: req.body.PatientID });
-    if (existing) {
-      return res.status(400).json({ message: "PatientID already exists" });
-    }
-    console.log(req.body);
-
     const patient = new Patient(req.body);
     await patient.save();
-
     res.status(201).json({ message: 'Patient added successfully', patient });
   } catch (err) {
     res.status(500).json({ message: 'Failed to add patient', error: err.message });

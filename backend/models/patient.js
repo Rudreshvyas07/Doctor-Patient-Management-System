@@ -66,8 +66,7 @@ const patientSchema = new mongoose.Schema({
     },
     PatientID: {
         type: String,
-        required: true,
-        unique: true,
+        // not required, not unique
     },
     doctor: {
         type: mongoose.Schema.Types.ObjectId,

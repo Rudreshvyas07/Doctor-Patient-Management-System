@@ -4,7 +4,6 @@ import API_BASE_URL from '../config/api';
 
 const AddPatient = ({ onClose, onAddPatient }) => {
   const [form, setForm] = useState({
-    PatientID: '',
     Name: '',
     Age: '',
     Gender: '',
@@ -68,10 +67,6 @@ const AddPatient = ({ onClose, onAddPatient }) => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4 animate-fade-in delay-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="relative col-span-2">
-              <input name="PatientID" value={form.PatientID} onChange={handleChange} placeholder=" " className="peer w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white transition" required />
-              <label className="absolute left-4 top-2 text-gray-500 dark:text-gray-400 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-blue-600 dark:peer-focus:text-blue-300 bg-white/80 dark:bg-gray-900/80 px-1 rounded pointer-events-none">Patient ID</label>
-            </div>
             <div className="relative">
               <input name="Name" value={form.Name} onChange={handleChange} placeholder=" " className="peer w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white transition" required />
               <label className="absolute left-4 top-2 text-gray-500 dark:text-gray-400 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-blue-600 dark:peer-focus:text-blue-300 bg-white/80 dark:bg-gray-900/80 px-1 rounded pointer-events-none">Name</label>
