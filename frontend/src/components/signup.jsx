@@ -33,17 +33,29 @@ function Signup() {
         setMessage(data.message || "Signup failed");
       }
     } catch (err) {
-      setMessage("Server error");
+      setMessage("Server error")
     }
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#f4f8fb] font-sans transition-colors duration-500">
-      <div className="bg-white dark:bg-[#18223a] shadow-2xl rounded-3xl p-24 max-w-5xl w-full flex flex-col justify-center border border-[#e0e7ef] dark:border-[#232e4a]">
+    <div className="min-h-screen w-full flex items-center justify-center relative bg-[#01111f] overflow-hidden">
+    {/* Animated Background Effects */}
+    <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute top-[-100px] left-[-100px] w-72 h-72 bg-[#0dc5b8]/30 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-[-80px] right-[-80px] w-60 h-60 bg-[#f4b43e]/30 rounded-full blur-2xl animate-blob-slow" />
+      <div className="absolute top-1/4 left-1/3 w-32 h-32 bg-[#0dc5b8]/20 rounded-full blur-xl animate-ping" />
+    </div>
+      <div className=" dark:bg-[#18223a] shadow-2xl rounded-3xl p-24 md:p-16 max-w-5xl w-full flex flex-col justify-center border border-[#e0e7ef] dark:border-[#232e4a]">
         <div className="flex flex-col items-center mb-6">
           <h2 className="text-4xl font-extrabold mb-2 text-[#2563eb] dark:text-[#38bdf8] drop-shadow animate-fade-in">Sign up</h2>
           <p className="text-gray-600 dark:text-gray-300 mt-1 animate-fade-in delay-100">Create your account to get started!</p>
         </div>
+         {/* Background Blobs */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-sky-300/20 dark:bg-sky-700/30 rounded-full blur-3xl animate-blob-1" />
+        <div className="absolute bottom-10 right-10 w-56 h-56 bg-teal-300/20 dark:bg-teal-600/30 rounded-full blur-2xl animate-blob-2" />
+        <div className="absolute top-1/3 left-1/3 w-32 h-32 bg-cyan-300/30 dark:bg-cyan-500/20 rounded-full blur-xl animate-blob-3" />
+      </div>
         <form className="space-y-6 animate-fade-in delay-200" onSubmit={handleSubmit}>
             <div className="relative">
               <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">Full Name</label>
@@ -121,7 +133,7 @@ function Signup() {
             </div>
             <button
               type="submit"
-              className="w-full px-8 py-3 rounded-xl font-bold text-lg shadow-md bg-[#10b981] hover:bg-[#047857] text-black hover:scale-105 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#6ee7b7] dark:focus:ring-[#38bdf8] animate-fade-in delay-300"
+              className="w-full px-8 py-3 rounded-xl font-bold text-lg shadow-md bg-[#2563eb]  text-white hover:scale-105 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#6ee7b7] dark:focus:ring-[#38bdf8] animate-fade-in delay-300"
               aria-label="Sign up"
             >
               Sign up
@@ -138,19 +150,39 @@ function Signup() {
           </div>
         </div>
       {/* Animations */}
-      <style>{`
-        .animate-fade-in {
-          opacity: 0;
-          animation: fadeIn 1s forwards;
-        }
-        .animate-fade-in.delay-100 { animation-delay: 0.1s; }
-        .animate-fade-in.delay-200 { animation-delay: 0.2s; }
-        .animate-fade-in.delay-300 { animation-delay: 0.3s; }
-        .animate-fade-in.delay-400 { animation-delay: 0.4s; }
-        @keyframes fadeIn {
-          to { opacity: 1; }
-        }
-      `}</style>
+     <style>{`
+      .animate-fade-in {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+      }
+      .animate-fade-in.delay-100 { animation-delay: 0.1s; }
+      .animate-fade-in.delay-200 { animation-delay: 0.2s; }
+      .animate-fade-in.delay-300 { animation-delay: 0.3s; }
+      .animate-fade-in.delay-400 { animation-delay: 0.4s; }
+
+      @keyframes fadeIn {
+        to { opacity: 1; }
+      }
+
+      @keyframes blobSlow {
+        0%, 100% { transform: translate(0px, 0px) scale(1); }
+        50% { transform: translate(30px, -20px) scale(1.1); }
+      }
+
+      @keyframes pulseSlow {
+        0%, 100% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.05); opacity: 0.5; }
+      }
+
+      .animate-blob-slow {
+        animation: blobSlow 10s infinite;
+      }
+
+      .animate-pulse-slow {
+        animation: pulseSlow 8s infinite;
+      }
+        
+    `}</style>
     </div>
   );
 }
