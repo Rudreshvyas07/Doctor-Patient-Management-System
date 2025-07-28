@@ -1,25 +1,36 @@
-import { createContext, useContext, useState, useEffect } from "react";
+// ThemeContext.jsx
+import { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext();
+const ThemeContext = createContext(null);
+
+// 🧠 Apply theme before render
+const applyInitialTheme = () => {
+  const stored = localStorage.getItem("theme") || "system";
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = stored === "dark" || (stored === "system" && prefersDark);
+  document.documentElement.classList.toggle("dark", isDark);
+  return stored;
+};
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "system"
-  );
+  const [theme, setTheme] = useState(applyInitialTheme);
 
   useEffect(() => {
     const root = document.documentElement;
-    const isDark =
-      theme === "system"
-        ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        : theme === "dark";
+    const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    if (isDark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
+    const applyTheme = () => {
+      const isDark = theme === "dark" || (theme === "system" && darkQuery.matches);
+      root.classList.toggle("dark", isDark);
+      localStorage.setItem("theme", theme);
+    };
+
+    applyTheme();
+
+    if (theme === "system") {
+      darkQuery.addEventListener("change", applyTheme);
+      return () => darkQuery.removeEventListener("change", applyTheme);
     }
-    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
@@ -29,5 +40,8 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => useContext(ThemeContext);
- 
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
+  return context;
+};

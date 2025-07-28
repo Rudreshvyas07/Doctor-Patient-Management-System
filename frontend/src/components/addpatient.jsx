@@ -48,9 +48,10 @@ const AddPatient = ({ onClose, onAddPatient }) => {
       } else {
         setMessage(data.message || 'Failed to add patient');
       }
-    } catch (err) {
-      setMessage('Server error');
-    } finally {
+    }catch (err) {
+  console.error('Error adding patient:', err);
+  setMessage('Server error: ' + (err.message || err));
+  } finally {
       setLoading(false);
     }
   };
