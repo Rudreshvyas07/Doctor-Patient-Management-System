@@ -4,7 +4,6 @@ import AddPatient from "./addpatient";
 import jsPDF from 'jspdf';
 import { useNavigate } from "react-router-dom";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import ThemeSwitcher from './ThemeSwitcher';
 import { FaUserFriends, FaChartBar, FaUserCog, FaSignOutAlt, FaPlus } from 'react-icons/fa';
 import API_BASE_URL from '../config/api';
 
@@ -312,7 +311,6 @@ export default function PatientDashboard() {
         {/* Top bar with theme switcher and welcome */}
         <div className="flex justify-between items-center mb-10">
           <div className="text-3xl font-extrabold text-[#1e293b] dark:text-[#e0e7b7] font-sans animate-fade-in">Welcome, <span className="text-[#2563eb] dark:text-[#38bdf8] font-extrabold">{profile.fullName || 'Doctor'}</span></div>
-          <ThemeSwitcher />
         </div>
         {/* Tabs at the top */}
         <div className="flex gap-4 mb-8">

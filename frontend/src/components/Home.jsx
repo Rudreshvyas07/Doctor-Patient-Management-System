@@ -7,12 +7,11 @@ import Doctorimage from '../assets/doctor.png';
 import { Facebook, Twitter, Linkedin } from 'lucide-react';
 
 
-
 const FeatureCard = ({ icon, title, desc, color }) => (
-  <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-md p-6 border border-gray-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 text-center transform hover:-translate-y-1 animate-fade-up">
+  <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 text-center transform hover:-translate-y-1 animate-fade-up">
     <div className={`text-4xl mb-3 ${color}`}>{icon}</div>
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-sm text-gray-600 dark:text-slate-300">{desc}</p>
+    <p className="text-sm text-gray-600">{desc}</p>
   </div>
 );
 
@@ -81,19 +80,19 @@ function Home() {
       icon: "💡",
       title: "Real-Time Access",
       desc: "Access patient records instantly, from any device securely.",
-      color: "text-sky-500 dark:text-sky-300"
+      color: "text-sky-500"
     },
     {
       icon: "🔐",
       title: "Secure & Private",
       desc: "All data is encrypted using industry standards.",
-      color: "text-teal-600 dark:text-teal-300"
+      color: "text-teal-600"
     },
     {
       icon: "🤝",
       title: "Collaborative Tools",
       desc: "Built-in features for teamwork & better outcomes.",
-      color: "text-cyan-600 dark:text-cyan-300"
+      color: "text-cyan-600"
     }
   ], []);
 
@@ -129,7 +128,7 @@ function Home() {
 ], []);
 
   return (
-    <div className="relative min-h-screen w-full font-inter bg-[#f9fafb] dark:bg-[#0d1b2a] text-gray-900 dark:text-white transition-colors duration-500 overflow-x-hidden">
+    <div className="relative min-h-screen w-full font-inter bg-[#f9fafb] text-gray-900 transition-colors duration-500 overflow-x-hidden">
 
      {/* Top Navbar */}
 <nav className="bg-transparent absolute top-5  left-0 w-full z-50">
@@ -145,13 +144,13 @@ function Home() {
 
       {/* Desktop Menu */}
       <div className="hidden md:flex space-x-8 items-center">
-        <Link to="/" className="text-gray-100 dark:text-slate-200 hover:text-teal-600 font-medium">
+        <Link to="/" className="text-gray-700 hover:text-teal-600 font-medium">
           Home
         </Link>
-        <Link to="/services" className="text-gray-100 dark:text-slate-200 hover:text-teal-600 font-medium">
+        <Link to="/services" className="text-gray-700 hover:text-teal-600 font-medium">
           Services
         </Link>
-        <Link to="/about" className="text-white  hover:text-teal-600 font-medium">
+        <Link to="/about" className="text-gray-700 hover:text-teal-600 font-medium">
           About Us
         </Link>
         <Link
@@ -165,7 +164,7 @@ function Home() {
       {/* Mobile Hamburger */}
       <div className="md:hidden">
         {/* Optional: Add a toggle menu if you want to support mobile menu */}
-        <button className="text-gray-100 dark:text-slate-200 focus:outline-none">
+        <button className="text-gray-700 focus:outline-none">
           {/* Hamburger Icon */}
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -184,19 +183,19 @@ function Home() {
       <section className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] text-center px-6 pt-32 md:pt-36 ">
          {/* Background Blobs */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-sky-300/20 dark:bg-sky-700/30 rounded-full blur-3xl animate-blob-1" />
-        <div className="absolute bottom-10 right-10 w-56 h-56 bg-teal-300/20 dark:bg-teal-600/30 rounded-full blur-2xl animate-blob-2" />
-        <div className="absolute top-1/3 left-1/3 w-30 h-30 bg-cyan-300/30 dark:bg-cyan-500/20 rounded-full blur-2xl animate-blob-3" />
+        <div className="absolute top-0 left-0 w-72 h-72 bg-sky-300/20 rounded-full blur-3xl animate-blob-1" />
+        <div className="absolute bottom-10 right-10 w-56 h-56 bg-teal-300/20 rounded-full blur-2xl animate-blob-2" />
+        <div className="absolute top-1/3 left-1/3 w-30 h-30 bg-cyan-300/30 rounded-full blur-2xl animate-blob-3" />
       </div>
       
-        <div className="bg-white/60 dark:bg-[#1e293b]/80 backdrop-blur-2xl rounded-2xl shadow-xl p-10 md:p-16 max-w-3xl mx-auto border border-white/20 dark:border-slate-600 animate-fade-down">
-          <h1 className="text-5xl font-bold mb-6 tracking-tight text-sky-600 dark:text-sky-400">
+        <div className="bg-white/60 backdrop-blur-2xl rounded-2xl shadow-xl p-10 md:p-16 max-w-3xl mx-auto border border-white/20 animate-fade-down">
+          <h1 className="text-5xl font-bold mb-6 tracking-tight text-sky-600">
             MediCare Health Records
           </h1>
-          <p className="text-lg md:text-xl font-medium text-gray-700 dark:text-slate-300 mb-3">
+          <p className="text-lg md:text-xl font-medium text-gray-700 mb-3">
             Empowering doctors to securely manage patient records with speed and confidence.
           </p>
-          <p className="text-base text-gray-500 dark:text-slate-400 mb-8">
+          <p className="text-base text-gray-500 mb-8">
             Access from anywhere. Anytime.
           </p>
 
@@ -235,9 +234,9 @@ function Home() {
       
        {/* Background Blobs */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-sky-300/20 dark:bg-sky-700/30 rounded-full blur-3xl animate-blob-1" />
-        <div className="absolute bottom-10 right-10 w-56 h-56 bg-teal-300/20 dark:bg-teal-600/30 rounded-full blur-2xl animate-blob-2" />
-        <div className="absolute top-1/3 left-1/3 w-30 h-30 bg-cyan-300/30 dark:bg-cyan-500/20 rounded-full blur-2xl animate-blob-3" />
+        <div className="absolute top-0 left-0 w-72 h-72 bg-sky-300/20 rounded-full blur-3xl animate-blob-1" />
+        <div className="absolute bottom-10 right-10 w-56 h-56 bg-teal-300/20 rounded-full blur-2xl animate-blob-2" />
+        <div className="absolute top-1/3 left-1/3 w-30 h-30 bg-cyan-300/30 rounded-full blur-2xl animate-blob-3" />
       </div>
       
       {/* Left: Image Section */}
@@ -298,11 +297,11 @@ function Home() {
         {/* Background Blobs */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           {/* Blob Top Right */}
-          <div className="absolute top-0 right-0 w-72 h-72 bg-sky-300/20 dark:bg-sky-700/30 rounded-full blur-3xl animate-blob-1" />
+          <div className="absolute top-0 right-0 w-72 h-72 bg-sky-300/20 rounded-full blur-3xl animate-blob-1" />
           {/* Blob Bottom Left */}
-          <div className="absolute bottom-0 left-0 w-56 h-56 bg-teal-300/20 dark:bg-teal-600/30 rounded-full blur-2xl animate-blob-2" />
+          <div className="absolute bottom-0 left-0 w-56 h-56 bg-teal-300/20 rounded-full blur-2xl animate-blob-2" />
           {/* Blob Center Right */}
-          <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-cyan-300/30 dark:bg-cyan-500/20 rounded-full blur-xl animate-blob-3 transform -translate-y-1/2" />
+          <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-cyan-300/30 rounded-full blur-xl animate-blob-3 transform -translate-y-1/2" />
         </div>
         <span className="bg-teal-700 text-teal-00 px-3 py-1 rounded-full text-sm font-semibold">
           Our Services

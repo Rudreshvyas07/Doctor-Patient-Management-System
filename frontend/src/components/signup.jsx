@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ThemeSwitcher from './ThemeSwitcher';
 import API_BASE_URL from '../config/api';
 
 function Signup() {
