@@ -30,31 +30,38 @@ const AddPatient = ({ onClose, onAddPatient }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage('');
-    try {
-      const doctorId = localStorage.getItem('doctorId');
-      const res = await fetch(`${API_BASE_URL}/api/patient/add`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, doctor: doctorId }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage('Patient added successfully!');
-        if (onAddPatient) onAddPatient(form);
-        if (onClose) onClose();
-      } else {
-        setMessage(data.message || 'Failed to add patient');
-      }
-    }catch (err) {
-  console.error('Error adding patient:', err);
-  setMessage('Server error: ' + (err.message || err));
-  } finally {
-      setLoading(false);
+  e.preventDefault();
+  setLoading(true);
+  setMessage('');
+  try {
+    const doctorCode = localStorage.getItem('doctorCode');
+    if (!doctorCode) {
+      setMessage('Doctor code not found in local storage');
+      return;
     }
-  };
+
+    const res = await fetch(`${API_BASE_URL}/api/patient/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...form, doctorCode }), // only doctorCode
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      setMessage('Patient added successfully!');
+      if (onAddPatient) onAddPatient(form);
+      if (onClose) onClose();
+    } else {
+      setMessage(data.message || 'Failed to add patient');
+    }
+  } catch (err) {
+    console.error('Error adding patient:', err);
+    setMessage('Server error: ' + (err.message || err));
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="relative z-10 flex flex-col items-center justify-center min-h-[600px] w-full">

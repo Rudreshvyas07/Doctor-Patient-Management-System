@@ -4,21 +4,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 // const authRoutes = require('./routes/auth');
 // const patientRoutes = require('./routes/patient');
+const connectDB = require('./utils/database');
 const registerRoutes = require('./routes');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const mongoURI = process.env.MONGO_URI;
-
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected!'))
-.catch((err) => console.error('MongoDB connection error:', err));
-
+connectDB();
 // app.use('/api/auth', authRoutes);
 // app.use('/api/patient', patientRoutes);
 registerRoutes(app);

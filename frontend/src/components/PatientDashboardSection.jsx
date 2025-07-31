@@ -45,8 +45,10 @@ const PatientDashboardSection = () => {
     const fetchPatients = async () => {
       setLoading(true);
       try {
-        const doctorId = localStorage.getItem('doctorId');
-        let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorId}`;
+          const doctorCode = localStorage.getItem("doctorCode");
+let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorCode}`;
+
+
         if (searchTerm) {
           url += `&name=${encodeURIComponent(searchTerm)}`;
         }
@@ -131,17 +133,24 @@ const PatientDashboardSection = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/patient/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setPatients(patients.filter((p) => p._id !== id));
-      } else {
-        // Optionally show error
-      }
-    } catch (err) {
-      // Optionally show error
+  try {
+    const doctorCode = localStorage.getItem("doctorCode"); // Get doctorCode from localStorage
+    const res = await fetch(`${API_BASE_URL}/api/patient/${id}?doctorCode=${doctorCode}`, {
+      method: 'DELETE',
+    });
+
+    if (res.ok) {
+      setPatients(patients.filter((p) => p._id !== id));
+    } else {
+      const data = await res.json();
+      console.error("Delete failed:", data.message);
+      alert(`Delete failed: ${data.message}`);
     }
-  };
+  } catch (err) {
+    console.error("Error deleting patient:", err);
+    alert("An unexpected error occurred while deleting the patient.");
+  }
+};
 
   const fieldsToShow = showAllFields ? allFields : visibleFields;
 

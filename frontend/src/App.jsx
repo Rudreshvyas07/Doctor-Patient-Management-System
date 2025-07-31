@@ -9,6 +9,7 @@ import PatientForm from "./components/PatientForm";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 
+
 function App() {
   return (
     <div className="min-h-screen bg-white text-black transition-colors duration-300">

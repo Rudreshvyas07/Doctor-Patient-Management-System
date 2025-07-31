@@ -87,8 +87,8 @@ export default function PatientDashboard() {
     const fetchPatients = async () => {
       setLoading(true);
       try {
-        const doctorId = localStorage.getItem('doctorId');
-        let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorId}`;
+       const doctorCode = localStorage.getItem("doctorCode");
+let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorCode}`;
         if (searchTerm) {
           url += `&name=${encodeURIComponent(searchTerm)}`;
         }
@@ -105,19 +105,30 @@ export default function PatientDashboard() {
     fetchPatients();
   }, [searchTerm]);
 
-  const handleDelete = async (id) => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/patient/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setPatients(patients.filter((p) => p._id !== id));
-      } else {
-        // Optionally show error
-      }
-    }catch (err) {
-  console.error('Error:', err);
-  // Optionally, set an error message state to show in the UI
-}
-  };
+ const handleDelete = async (id) => {
+  try {
+    const doctorCode = localStorage.getItem("doctorCode");
+    if (!doctorCode) {
+      console.error("Doctor code not found in localStorage");
+      return;
+    }
+
+    const res = await fetch(`${API_BASE_URL}/api/patient/${id}?doctorCode=${doctorCode}`, {
+      method: 'DELETE',
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setPatients(patients.filter((p) => p._id !== id));
+    } else {
+      console.error("Delete failed:", data.message);
+      alert(`Delete failed: ${data.message}`);
+    }
+  } catch (err) {
+    console.error("Error deleting patient:", err);
+  }
+};
 
   // Edit patient modal state
   const [editPatient, setEditPatient] = useState(null);
