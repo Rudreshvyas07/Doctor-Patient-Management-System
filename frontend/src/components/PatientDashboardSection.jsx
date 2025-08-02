@@ -46,7 +46,8 @@ const PatientDashboardSection = () => {
       setLoading(true);
       try {
           const doctorCode = localStorage.getItem("doctorCode");
-let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorCode}`;
+let url = `${API_BASE_URL}/api/patient/all?doctorCode=${doctorCode}`;
+
 
 
         if (searchTerm) {

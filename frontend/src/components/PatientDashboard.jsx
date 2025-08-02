@@ -83,33 +83,51 @@ export default function PatientDashboard() {
   };
 
   // Fetch patients from backend on mount and when searchTerm changes
-  useEffect(() => {
-    const fetchPatients = async () => {
-      setLoading(true);
-      try {
-       const doctorCode = localStorage.getItem("doctorCode");
-let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorCode}`;
-        if (searchTerm) {
-          url += `&name=${encodeURIComponent(searchTerm)}`;
-        }
-        const res = await fetch(url);
-        const data = await res.json();
-        if (res.ok && Array.isArray(data.patients)) {
-          setPatients(data.patients.map((p, idx) => ({ number: idx + 1, ...p })));
-        }
+ useEffect(() => {
+  const fetchPatients = async () => {
+    setLoading(true);
+    try {
+      const doctorCode = localStorage.getItem("doctorCode");
+      if (!doctorCode) {
+        console.error("Doctor code not found in localStorage");
+        return;
       }
-      finally {
-        setLoading(false);
+
+      let url = `${API_BASE_URL}/api/patient/all?doctorCode=${doctorCode}`;
+      if (searchTerm) {
+        url += `&name=${encodeURIComponent(searchTerm)}`;
       }
-    };
-    fetchPatients();
-  }, [searchTerm]);
+
+      const res = await fetch(url);
+      const data = await res.json();
+      if (res.ok && Array.isArray(data.patients)) {
+        setPatients(data.patients.map((p, idx) => ({ number: idx + 1, ...p })));
+      }
+    } catch (err) {
+      console.error("Error fetching patients:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPatients();
+}, [searchTerm]);
 
  const handleDelete = async (id) => {
   try {
     const doctorCode = localStorage.getItem("doctorCode");
+
+    // ✅ Check if doctorCode exists
     if (!doctorCode) {
       console.error("Doctor code not found in localStorage");
+      alert("Doctor code missing. Please re-login.");
+      return;
+    }
+
+    // ✅ Check if patient ID is a valid 24-char MongoDB ObjectId
+    if (!id || typeof id !== "string" || id.length !== 24 || !/^[a-fA-F0-9]{24}$/.test(id)) {
+      console.error("Invalid patient ID format:", id);
+      alert("Invalid patient ID. Cannot delete.");
       return;
     }
 
@@ -127,6 +145,7 @@ let url = `${API_BASE_URL}/api/patient/all?doctor=${doctorCode}`;
     }
   } catch (err) {
     console.error("Error deleting patient:", err);
+    alert("Something went wrong. Try again.");
   }
 };
 

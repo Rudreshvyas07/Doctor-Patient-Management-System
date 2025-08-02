@@ -1,68 +1,59 @@
-const e = require('express');
-const Patient = require('../models/patient');
-const User = require('../models/User'); // For doctor lookup via code
+const mongoose = require("mongoose");
+const Patient = require("../models/patient");
 
-// 🟢 Add Patient
+// ✅ Add Patient
 exports.addPatient = async (req, res) => {
   try {
     const { doctorCode } = req.body;
- console.log("Adding patient with data:", doctorCode, req.body);
-    if (!doctorCode) {
-      return res.status(400).json({ message: 'Doctor code is required' });
+    if (!doctorCode) return res.status(400).json({ message: "Doctor code is required" });
+
+    // Validate Dates
+    const { dateofVisit, nextVisitDate } = req.body;
+    if (dateofVisit && isNaN(Date.parse(dateofVisit))) {
+      return res.status(400).json({ message: "Invalid dateofVisit" });
+    }
+    if (nextVisitDate && isNaN(Date.parse(nextVisitDate))) {
+      return res.status(400).json({ message: "Invalid nextVisitDate" });
     }
 
-    const doctor = await User.findOne({ code: doctorCode });
-    if (!doctor) {
-      return res.status(400).json({ message: 'Invalid doctor code' });
-    }
-
-    // Auto-generate patient ID if not given
+    // Generate unique PatientID if not provided
     if (!req.body.PatientID) {
       req.body.PatientID = `PID-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     }
 
     const patient = new Patient({
       ...req.body,
-      doctor: doctor._id, // This links the patient to the doctor's _id
+      doctorCode,
     });
 
     await patient.save();
-    return res.status(201).json({ message: 'Patient added successfully', patient });
-
+    res.status(201).json({ message: "Patient added successfully", patient });
   } catch (err) {
-    console.error('Error adding patient:', err);
-    return res.status(500).json({ message: 'Failed to add patient', error: err.message });
+    console.error("Add error:", err);
+    res.status(500).json({ message: "Failed to add patient", error: err.message });
   }
 };
 
-
+// ✅ Get All Patients
 exports.getAllPatients = async (req, res) => {
   try {
-    console.log("Fetching all patients with query:", req.query);
-   const doctorCode = req.query.doctorCode || req.query.doctor;
-
-
+    const doctorCode = req.query.doctor || req.query.doctorCode; // support both
     if (!doctorCode) {
-      return res.status(400).json({ message: 'Doctor code is required' });
+      return res.status(400).json({ message: "Doctor code is required" });
     }
 
     const name = req.query.name;
-    let filter = { doctorCode }; // ✅ Match your schema field (string)
-
+    const filter = { doctorCode };
     if (name) {
-      filter.Name = { $regex: name, $options: 'i' };
+      filter.Name = { $regex: name, $options: "i" };
     }
 
-    // Pagination
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
     const total = await Patient.countDocuments(filter);
-    const patients = await Patient.find(filter)
-      .skip(skip)
-      .limit(limit)
-      .exec();
+    const patients = await Patient.find(filter).skip(skip).limit(limit);
 
     res.status(200).json({
       patients,
@@ -71,54 +62,61 @@ exports.getAllPatients = async (req, res) => {
       totalPages: Math.ceil(total / limit),
     });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch patients', error: err.message });
+    console.error("Get error:", err);
+    res.status(500).json({ message: "Failed to fetch patients", error: err.message });
   }
 };
 
-
-// 🟢 Edit Patient
+// ✅ Edit Patient
 exports.editPatient = async (req, res) => {
   try {
     const { id } = req.params;
     const { doctorCode } = req.body;
 
     if (!id || !doctorCode) {
-      return res.status(400).json({ message: 'Patient ID and doctor code are required' });
+      return res.status(400).json({ message: "Patient ID and doctor code are required" });
     }
 
-    const patient = await Patient.findOne({ _id: id, doctorCode });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid patient ID" });
+    }
 
-    if (!patient) {
-      return res.status(404).json({ message: 'Patient not found or unauthorized' });
+    const existing = await Patient.findOne({ _id: id, doctorCode });
+    if (!existing) {
+      return res.status(404).json({ message: "Patient not found or unauthorized" });
     }
 
     const updated = await Patient.findByIdAndUpdate(id, req.body, { new: true });
-
-    res.status(200).json({ message: 'Patient updated', patient: updated });
+    res.status(200).json({ message: "Patient updated successfully", patient: updated });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to update patient', error: err.message });
+    console.error("Edit error:", err);
+    res.status(500).json({ message: "Failed to update patient", error: err.message });
   }
 };
+
+// ✅ Delete Patient
 exports.deletePatient = async (req, res) => {
   try {
     const { id } = req.params;
-    const { doctorCode } = req.query;
-
-    console.log("Delete Request => ID:", id, "| doctorCode:", doctorCode);
+    const doctorCode = req.query.doctorCode || req.query.doctor;
 
     if (!id || !doctorCode) {
-      return res.status(400).json({ message: 'Patient ID and doctor code are required' });
+      return res.status(400).json({ message: "Patient ID and doctor code are required" });
     }
 
-    const patient = await Patient.findOne({ _id: id, doctorCode });
-    if (!patient) {
-      return res.status(404).json({ message: 'Patient not found or unauthorized' });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid patient ID" });
+    }
+
+    const existing = await Patient.findOne({ _id: id, doctorCode });
+    if (!existing) {
+      return res.status(404).json({ message: "Patient not found or unauthorized" });
     }
 
     await Patient.findByIdAndDelete(id);
-    res.status(200).json({ message: 'Patient deleted' });
+    res.status(200).json({ message: "Patient deleted successfully" });
   } catch (err) {
-    console.error('Error deleting patient:', err);
-    res.status(500).json({ message: 'Failed to delete patient', error: err.message });
+    console.error("Delete error:", err);
+    res.status(500).json({ message: "Failed to delete patient", error: err.message });
   }
 };
