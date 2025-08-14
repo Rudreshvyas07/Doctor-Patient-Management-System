@@ -155,9 +155,14 @@ function Home() {
         </Link>
         <Link
           to="/signup"
-          className="bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition text-sm"
         >
-          Sign Up
+          <button
+            type="button"
+            className="flex items-center justify-center gap-2 px-8 py-3 rounded-lg text-base font-medium bg-teal-500 hover:bg-teal-600 text-white shadow-md transition-transform duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          >
+            <UserPlus size={20} />
+            Sign Up
+          </button>
         </Link>
       </div>
 
@@ -251,7 +256,7 @@ function Home() {
 
       {/* Right: Text Content */}
       <div>
-        <span className="bg-teal-700 text-teal-00 px-3 py-1 rounded-full text-sm font-semibold">
+        <span className="bg-teal-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
           About Medicare
         </span>
 
@@ -268,19 +273,19 @@ function Home() {
         <ul className="mt-6 space-y-5 text-gray-100">
           <li>
             <span className="font-semibold">Advanced Anesthesia Care</span><br />
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-gray-700">
               Get expert anesthesiology support and consultations from the comfort of your home—safe, simple, and stress-free.
             </span>
           </li>
           <li>
             <span className="font-semibold">Full-Body & Neurological Testing</span><br />
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-gray-700">
              Seamless access to skin, head, and full-body testing through virtual care. Clear results, faster diagnoses.
             </span>
           </li>
           <li>
             <span className="font-semibold"> Immune System Support & Antibody Services</span><br />
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-gray-700">
               Specialized consultations for antibody-related concerns, helping you stay informed and protected.
             </span>
           </li>
@@ -292,7 +297,7 @@ function Home() {
         
       </div>
     </div>
-  <section className=" dark:bg-[#0d1b2a] py-20">
+  <section className=" bg-white py-20">
       <div className="max-w-6xl mx-auto px-4 text-center">
         {/* Background Blobs */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
@@ -318,8 +323,8 @@ function Home() {
               className={`transition-all rounded-xl p-6 text-left shadow-sm hover:shadow-md hover:scale-[1.02]
                 ${
                   service.active
-                    ? ' dark:bg-[#1e293b] text-white hover:dark:bg-[#1e293b]/60'
-                    : ' dark:bg-[#1e293b] text-white hover:dark:bg-[#1e293b]/60'
+                    ? ' dark:bg-[#1e293b] text-white '
+                    : ' dark:bg-[#1e293b] text-white '
                 }
               `}
             >
@@ -555,7 +560,7 @@ function BlogCard({ title, date, description }) {
 
 function BlogSection({ blogs }) {
   return (
-    <section className="bg-[#f9fafb] dark:bg-[#0d1b2a] py-20 relative z-10">
+    <section className="bg-[#f9fafb]  py-20 relative z-10">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <span className="bg-teal-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
           Our Blog

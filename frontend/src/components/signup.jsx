@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import API_BASE_URL from '../config/api';
 
-console.log("🟢 Signup component rendered");
-
 function Signup() {
   const [form, setForm] = useState({
     fullName: "",
@@ -25,7 +23,6 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    console.log("🚀 Submit clicked, data:", form);
 
     if (form.code.length !== 4 || isNaN(form.code)) {
       setMessage("Code must be a 4-digit number");
@@ -66,38 +63,21 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center relative bg-[#01111f] overflow-hidden">
-      
-      {/* Background blobs (non-clickable) */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-100px] left-[-100px] w-72 h-72 bg-[#0dc5b8]/30 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-[-80px] right-[-80px] w-60 h-60 bg-[#f4b43e]/30 rounded-full blur-2xl animate-blob-slow" />
-        <div className="absolute top-1/4 left-1/3 w-32 h-32 bg-[#0dc5b8]/20 rounded-full blur-xl animate-ping" />
-      </div>
-
-      {/* Signup Form Container */}
-      <div className="z-10 dark:bg-[#18223a] shadow-2xl rounded-3xl p-24 md:p-16 max-w-5xl w-full flex flex-col justify-center border border-[#e0e7ef] dark:border-[#232e4a]">
-        <div className="flex flex-col items-center mb-6">
-          <h2 className="text-4xl font-extrabold mb-2 text-[#2563eb] dark:text-[#38bdf8] drop-shadow animate-fade-in">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+      <div className="bg-white shadow-xl rounded-2xl p-8 md:p-12 max-w-lg w-full border border-gray-100">
+        <div className="flex flex-col items-center mb-8">
+          <h2 className="text-3xl font-extrabold text-indigo-600">
             Sign up
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-1 animate-fade-in delay-100">
+          <p className="text-gray-500 mt-1">
             Create your account to get started!
           </p>
         </div>
 
-        <form
-          className="space-y-6 animate-fade-in delay-200"
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log("🚨 onSubmit triggered!");
-            handleSubmit(e);
-          }}
-        >
-
+        <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Full Name */}
-          <div className="relative">
-            <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Full Name
             </label>
             <input
@@ -106,13 +86,13 @@ function Signup() {
               placeholder="Jon Snow"
               value={form.fullName}
               onChange={handleChange}
-              className="w-full pl-3 pr-4 py-2 border rounded-lg dark:bg-[#101624] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
 
           {/* Medical Field */}
-          <div className="relative">
-            <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Medical Field
             </label>
             <input
@@ -121,13 +101,13 @@ function Signup() {
               placeholder="Homeopathy"
               value={form.medicalField}
               onChange={handleChange}
-              className="w-full pl-3 pr-4 py-2 border rounded-lg dark:bg-[#101624] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
 
           {/* Email */}
-          <div className="relative">
-            <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Email
             </label>
             <input
@@ -136,13 +116,13 @@ function Signup() {
               placeholder="you@example.com"
               value={form.email}
               onChange={handleChange}
-              className="w-full pl-3 pr-4 py-2 border rounded-lg dark:bg-[#101624] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
 
           {/* Password */}
-          <div className="relative">
-            <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Password
             </label>
             <input
@@ -151,13 +131,13 @@ function Signup() {
               placeholder="********"
               value={form.password}
               onChange={handleChange}
-              className="w-full pl-3 pr-4 py-2 border rounded-lg dark:bg-[#101624] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
 
           {/* Mobile */}
-          <div className="relative">
-            <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               Mobile Number
             </label>
             <input
@@ -166,13 +146,13 @@ function Signup() {
               placeholder="+91-9876543210"
               value={form.mobile}
               onChange={handleChange}
-              className="w-full pl-3 pr-4 py-2 border rounded-lg dark:bg-[#101624] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
 
           {/* Doctor Code */}
-          <div className="relative">
-            <label className="block text-[#334155] dark:text-[#cbd5e1] text-sm mb-1 font-medium">
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
               4-Digit Doctor Code
             </label>
             <input
@@ -183,29 +163,29 @@ function Signup() {
               onChange={handleChange}
               min="1000"
               max="9999"
-              className="w-full pl-3 pr-4 py-2 border rounded-lg dark:bg-[#101624] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full px-8 py-3 rounded-xl font-bold text-lg shadow-md bg-[#2563eb] text-white hover:scale-105 transition-all"
+            className="w-full py-3 rounded-lg font-bold text-lg shadow-md bg-indigo-600 text-white hover:bg-indigo-700 transition-all"
           >
             Sign up
           </button>
 
           {message && (
-            <div className="text-center text-sm mt-2 text-[#10b981] dark:text-[#6ee7b7]">
+            <div className="text-center text-sm mt-2 text-green-600">
               {message}
             </div>
           )}
         </form>
 
-        <div className="text-center mt-6 animate-fade-in delay-400">
-          <p className="text-sm text-[#64748b] dark:text-[#cbd5e1]">
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-500">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#2563eb] dark:text-[#38bdf8] hover:underline font-medium">
+            <Link to="/login" className="text-indigo-600 hover:underline font-medium">
               Login
             </Link>
           </p>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API_BASE_URL from '../config/api';
+import API_BASE_URL from "../config/api";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -36,48 +36,60 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center relative bg-[#01111f] overflow-hidden">
-      {/* Animated Background Effects */}
+    <div className="min-h-screen w-full flex items-center justify-center relative bg-gradient-to-br from-pink-50 via-white to-orange-50 overflow-hidden">
+      {/* Animated Background Blobs */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-[-100px] left-[-100px] w-72 h-72 bg-[#0dc5b8]/30 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-[-80px] right-[-80px] w-60 h-60 bg-[#f4b43e]/30 rounded-full blur-2xl animate-blob-slow" />
-        <div className="absolute top-1/4 left-1/3 w-32 h-32 bg-[#0dc5b8]/20 rounded-full blur-xl animate-ping" />
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-pink-200/40 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-purple-200/40 rounded-full blur-2xl animate-blob-slow" />
+        <div className="absolute top-1/4 left-1/3 w-32 h-32 bg-orange-200/30 rounded-full blur-xl animate-ping" />
       </div>
 
-      <div className="dark:bg-[#18223a] shadow-2xl rounded-3xl p-24 md:p-16 max-w-2xl w-full flex flex-col justify-center border border-[#e0e7ef] dark:border-[#232e4a] z-10">
-        <h2 className="text-2xl font-extrabold text-white mb-2 text-center">Forgot Password</h2>
-        <p className="text-gray-200 mb-6 text-center">Enter your email to receive a password reset link.</p>
+      <div className="bg-white shadow-xl rounded-2xl p-10 md:p-12 max-w-lg w-full border border-gray-100 z-10">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-2">
+          Forgot Password
+        </h2>
+        <p className="text-center text-gray-500 mb-6">
+          Enter your email to receive a password reset link.
+        </p>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-gray-200 text-sm mb-1 font-medium">Email</label>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              Email
+            </label>
             <input
               type="email"
               name="email"
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-[#334155] rounded-lg bg-white dark:bg-[#101624] text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-300"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition text-lg tracking-wide disabled:opacity-60"
+            className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-3 rounded-lg shadow-md hover:from-pink-600 hover:to-purple-600 transition-all text-lg tracking-wide disabled:opacity-60"
             disabled={loading}
           >
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
 
           {message && (
-            <div className="text-center text-sm mt-2 text-blue-400">{message}</div>
+            <div
+              className={`text-center text-sm mt-2 ${
+                message.includes("sent") ? "text-green-600" : "text-red-500"
+              }`}
+            >
+              {message}
+            </div>
           )}
         </form>
 
         <div className="mt-6 text-center">
-          <button 
-            className="text-sm text-white hover:underline transition w-full"
+          <button
+            className="text-sm text-purple-500 hover:underline transition w-full"
             onClick={() => navigate("/login")}
           >
             Back to Login
